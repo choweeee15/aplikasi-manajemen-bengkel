@@ -11,6 +11,32 @@ use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\LogActivityController;
+use App\Http\Controllers\BoothController;
+use App\Http\Controllers\TiketController;
+use App\Http\Controllers\PenyewaController;
+use App\Http\Controllers\PengunjungController;
+use App\Http\Controllers\PembelianTiketController;
+use App\Http\Controllers\TransaksiSewaController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserBoothController;
+use App\Http\Controllers\AdminBoothController;
+use App\Http\Controllers\AdminTiketController;
+use App\Http\Controllers\AdminPenyewaController;
+use App\Http\Controllers\AdminPengunjungController;
+use App\Http\Controllers\AdminPembelianTiketController;
+use App\Http\Controllers\AdminTransaksiSewaController;
+use App\Http\Controllers\UserAccountController;
+use App\Http\Controllers\AdminUserController;
+
+// Bungkus auth kalau perlu
+Route::middleware(['web'/*,'auth','can:admin'*/])->group(function () {
+    // resource admin – url /admin/... tapi nama route tetap booths.*, tiket.*, dst
+    Route::resource('/admin/booths', BoothController::class)->names('booths');
+    Route::resource('/admin/tiket', TiketController::class)->names('tiket');
+    Route::resource('/admin/penyewas', PenyewaController::class)->names('penyewas');
+    Route::resource('/admin/pengunjungs', PengunjungController::class)->names('pengunjungs');
+    Route::resource('/admin/transaksi-sewa', TransaksiSewaController::class)->names('transaksi-sewa');
+});
 
 // Halaman Utama
 Route::get('/', function () {
@@ -28,6 +54,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/home', [AuthController::class, 'home'])->name('user.home');
 Route::get('/about', [HomeController::class, 'about']);
 Route::get('/services', [HomeController::class, 'services'])->name('services');
+
+
+Route::get('/', [HomeController::class, 'index'])->name('landing'); // opsional
+Route::get('/home', [HomeController::class, 'index'])->name('user.home');
 
 // Booking
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
@@ -69,6 +99,64 @@ Route::put('/pembayaran/{id}/verifikasi', [PembayaranController::class, 'verifik
 Route::get('/dashboardadmin', [DashboardAdminController::class, 'index'])->name('dashboardadmin');
 
 Route::get('/log_activity', [LogActivityController::class, 'index'])->name('log_activity.index');
+
+Route::get('/dashboardadmin', [DashboardController::class, 'index'])->name('dashboardadmin');
+
+Route::get('/booth', [UserBoothController::class, 'katalog'])->name('user.booth.katalog');
+Route::get('/booth/{booth}/sewa', [UserBoothController::class, 'create'])->name('user.booth.sewa.create');
+Route::post('/booth/{booth}/sewa', [UserBoothController::class, 'store'])->name('user.booth.sewa.store');
+
+// HOME pengguna (sudah kamu punya)
+Route::get('/home', [HomeController::class, 'index'])->name('user.home');
+
+// KATALOG & SEWA BOOTH (kalau sudah dibuat sebelumnya)
+Route::get('/booth', [UserBoothController::class, 'katalog'])->name('user.booth.katalog');
+Route::get('/booth/{booth}/sewa', [UserBoothController::class, 'create'])->name('user.booth.sewa.create');
+Route::post('/booth/{booth}/sewa', [UserBoothController::class, 'store'])->name('user.booth.sewa.store');
+
+// ====== USER: AKUN (PENGUNJUNG) ======
+Route::get('/pengunjungs', [PengunjungController::class, 'index'])->name('pengunjungs.index');
+Route::post('/pengunjungs', [PengunjungController::class, 'storeOrUpdate'])->name('pengunjungs.store');
+
+// ====== USER: BELI TIKET ======
+Route::get('/pembelian-tiket', [PembelianTiketController::class, 'index'])->name('pembelian-tiket.index');
+Route::get('/pembelian-tiket/create', [PembelianTiketController::class, 'create'])->name('pembelian-tiket.create');
+Route::post('/pembelian-tiket', [PembelianTiketController::class, 'store'])->name('pembelian-tiket.store');
+
+// Boleh dibungkus middleware auth/is_admin kalau sudah ada
+Route::get('/admin/booths',            [AdminBoothController::class, 'index'])->name('admin.booths.index');
+Route::get('/admin/tiket',             [AdminTiketController::class, 'index'])->name('admin.tiket.index');
+Route::get('/admin/penyewas',          [AdminPenyewaController::class, 'index'])->name('admin.penyewas.index');
+Route::get('/admin/pengunjungs',       [AdminPengunjungController::class, 'index'])->name('admin.pengunjungs.index');
+Route::get('/admin/pembelian-tiket',   [AdminPembelianTiketController::class, 'index'])->name('admin.pembelian-tiket.index');
+Route::get('/admin/transaksi-sewa',    [AdminTransaksiSewaController::class, 'index'])->name('admin.transaksi-sewa.index');
+
+// ===== ADMIN: Kelola Pengunjung & Kelola Pembelian Tiket =====
+Route::get('/admin/pengunjungs', [AdminPengunjungController::class, 'index'])
+    ->name('admin.pengunjungs.index');
+
+Route::get('/admin/pembelian-tiket', [AdminPembelianTiketController::class, 'index'])
+    ->name('admin.pembelian-tiket.index');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/akun', [UserAccountController::class, 'index'])->name('user.account');
+    });
+   
+Route::middleware(['web', /* 'auth', 'can:admin' */])->group(function () {
+        Route::get('/admin/users',        [AdminUserController::class, 'index'])->name('user.index');
+        Route::post('/admin/users',       [AdminUserController::class, 'store'])->name('user.store');
+        Route::put('/admin/users/{id}',   [AdminUserController::class, 'update'])->name('user.update');
+        Route::delete('/admin/users/{id}',[AdminUserController::class, 'destroy'])->name('user.destroy');
+    });
+
+Route::resources([
+    'booths'           => BoothController::class,
+    'tiket'            => TiketController::class,
+    'penyewas'         => PenyewaController::class,
+    'pengunjungs'      => PengunjungController::class,
+    'pembelian-tiket'  => PembelianTiketController::class,
+    'transaksi-sewa'   => TransaksiSewaController::class,
+]);
 
 // Dashboard Khusus for authenticated users
 Route::middleware(['auth'])->group(function () {

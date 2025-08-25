@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>@yield('title', 'CarServ - Car Repair')</title>
+    <title>@yield('title', 'FestivalKita – Booth Festival')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- HEAD -->
@@ -30,106 +30,82 @@
     <!-- Main Style -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-    <!-- Dashboard Admin Custom Styles -->
     @yield('dashboard-css')
-    <style>
-    /* Jika kamu gak pakai @section('dashboard-css'), fallback styling bisa di sini juga */
-
-    .dashboard-container {
-        padding: 30px;
-        background: linear-gradient(135deg, #4e0000, #800000);
-        min-height: 100vh;
-        animation: fadeInScale 1s ease forwards;
-        color: #f8f8f8;
-    }
-    @keyframes fadeInScale {
-        0% {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-    .stat-card {
-        border-radius: 12px;
-        color: white;
-        box-shadow: 0 8px 20px rgb(255 0 0 / 0.3);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: default;
-    }
-    .stat-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 30px rgb(255 0 0 / 0.5);
-    }
-    .stat-icon {
-        font-size: 2.8rem;
-        margin-bottom: 10px;
-    }
-    .category-card {
-        background: linear-gradient(45deg, #7b0000, #b30000);
-    }
-    .mechanic-card {
-        background: linear-gradient(45deg, #a30000, #d10000);
-    }
-    .service-card {
-        background: linear-gradient(45deg, #8b0000, #cc0000);
-    }
-    .finished-card {
-        background: linear-gradient(45deg, #6b0000, #9f0000);
-    }
-    .chart-card, .notif-card, .quick-action-card {
-        background: #5a0000;
-        border-radius: 12px;
-        color: white;
-        box-shadow: 0 6px 15px rgb(255 0 0 / 0.2);
-    }
-    .chart-card .card-header,
-    .notif-card .card-header,
-    .quick-action-card .card-header {
-        background: transparent;
-        font-weight: 600;
-        font-size: 1.2rem;
-        border-bottom: 1px solid #9f0000;
-    }
-    .btn-gradient-red {
-        background: linear-gradient(45deg, #b30000, #7b0000);
-        color: #fff;
-        border: none;
-        transition: background 0.3s ease;
-    }
-    .btn-gradient-red:hover {
-        background: linear-gradient(45deg, #d10000, #a30000);
-        color: white;
-    }
-    ul.list-unstyled li {
-        margin-bottom: 10px;
-        font-size: 0.95rem;
-    }
-    ul.list-unstyled li i {
-        margin-right: 10px;
-    }
-    </style>
 </head>
 <body>
 
-    @include('layouts.header')
+    {{-- TOPBAR (global) --}}
+    <div class="container-fluid bg-light py-2 d-none d-lg-block">
+      <div class="container d-flex justify-content-between">
+        <div class="small">
+          <i class="fa fa-map-marker-alt text-danger me-2"></i> Lokasi: Area Festival, Kota Kamu
+          <span class="mx-2">•</span>
+          <i class="far fa-clock text-danger me-2"></i> Buka: 10.00 – 22.00
+        </div>
+        <div class="small">
+          <i class="fa fa-phone-alt text-danger me-2"></i> Kontak: 08xx-xxxx-xxxx
+        </div>
+      </div>
+    </div>
+
+    {{-- NAVBAR (global) --}}
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+      <a href="{{ route('user.home') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-danger"><i class="fa fa-ticket-alt me-3"></i>FestivalKita</h2>
+      </a>
+      <button class="navbar-toggler me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+          <a href="{{ route('user.home') }}" class="nav-item nav-link {{ request()->routeIs('user.home') ? 'active' : '' }}">
+            <i class="fas fa-home me-2"></i> Home
+          </a>
+          <a href="{{ route('pembelian-tiket.index') }}" class="nav-item nav-link {{ request()->routeIs('pembelian-tiket.*') ? 'active' : '' }}">
+            <i class="fas fa-ticket-alt me-2"></i> Beli Tiket
+          </a>
+          <a href="{{ route('user.booth.katalog') }}" class="nav-item nav-link {{ request()->routeIs('user.booth.*') ? 'active' : '' }}">
+            <i class="fas fa-store me-2"></i> Booth
+          </a>
+          <a href="{{ route('user.account') }}" 
+            class="nav-item nav-link {{ request()->routeIs('user.account') ? 'active' : '' }}">
+            <i class="fas fa-user me-2"></i> Akun
+          </a>
+        </div>
+
+        @auth
+          <form method="POST" action="{{ route('logout') }}" class="d-inline me-3">
+            @csrf
+            <button class="btn btn-link nav-item nav-link text-dark" style="text-decoration:none;">
+              <i class="fas fa-sign-out-alt me-1"></i> Logout
+            </button>
+          </form>
+        @endauth
+
+        @guest
+          <div class="d-flex me-3">
+            @if(Route::has('login'))
+              <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
+            @endif
+            @if(Route::has('register'))
+              <a href="{{ route('register') }}" class="nav-item nav-link">Register</a>
+            @endif
+          </div>
+        @endguest
+      </div>
+    </nav>
 
     <main>
         @yield('content')
     </main>
 
-    @include('layouts.footer')
+    @includeIf('layouts.footer')
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+    <script> AOS.init(); </script>
 
-    <!-- Chart.js for dashboard -->
     @yield('dashboard-js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </body>
 </html>

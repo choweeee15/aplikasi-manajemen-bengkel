@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2025 at 02:34 PM
+-- Generation Time: Aug 25, 2025 at 08:22 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,8 +18,49 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bengkell`
+-- Database: `festivalbooth1`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `booths`
+--
+
+CREATE TABLE `booths` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `admin_id` int(10) UNSIGNED DEFAULT NULL,
+  `nama_booth` varchar(100) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `harga_sewa` decimal(15,0) UNSIGNED NOT NULL,
+  `status` enum('tersedia','tersewa') NOT NULL DEFAULT 'tersedia',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `booths`
+--
+
+INSERT INTO `booths` (`id`, `admin_id`, `nama_booth`, `deskripsi`, `harga_sewa`, `status`, `created_at`) VALUES
+(4, NULL, 'TES', 'TES', 123, 'tersedia', '2025-08-19 18:16:14'),
+(5, NULL, 'TES1', 'tes halo', 678635343, 'tersedia', '2025-08-22 12:45:25'),
+(7, NULL, 'makanan juddjj', 'makanan luarnegeri', 50, 'tersewa', '2025-08-22 17:32:08'),
+(8, NULL, 'Booth CornDog', 'makannan enak', 200, 'tersedia', '2025-08-24 18:36:18');
 
 -- --------------------------------------------------------
 
@@ -342,7 +383,56 @@ INSERT INTO `log_activities` (`id`, `username`, `activity`, `ip_address`, `creat
 (171, 'caca@gmail.com', 'Menghapus user dengan email: sapi@gmail.com', '127.0.0.1', '2025-06-01 05:32:48'),
 (172, 'caca@gmail.com', 'Admin melihat riwayat pembayaran.', '127.0.0.1', '2025-06-01 05:32:52'),
 (173, 'caca@gmail.com', 'Admin melihat riwayat pembayaran.', '127.0.0.1', '2025-06-01 05:33:00'),
-(174, 'caca@gmail.com', 'Admin melihat riwayat pembayaran.', '127.0.0.1', '2025-06-01 05:34:02');
+(174, 'caca@gmail.com', 'Admin melihat riwayat pembayaran.', '127.0.0.1', '2025-06-01 05:34:02'),
+(175, 'Guest', 'Mendaftarkan user baru dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-13 14:20:46'),
+(176, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-13 14:21:02'),
+(177, 'admin2@gmail.com', 'Melihat riwayat booking', '127.0.0.1', '2025-08-13 14:21:06'),
+(178, 'admin2@gmail.com', 'Melihat riwayat pembayaran.', '127.0.0.1', '2025-08-13 14:21:07'),
+(179, 'admin2@gmail.com', 'User logout dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-13 14:22:58'),
+(180, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-13 14:23:18'),
+(181, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-13 14:23:18'),
+(182, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 14:23:27'),
+(183, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 14:25:26'),
+(184, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-13 14:25:29'),
+(185, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 14:26:45'),
+(186, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 15:01:55'),
+(187, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 15:01:57'),
+(188, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 15:01:58'),
+(189, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 15:02:00'),
+(190, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-13 15:02:09'),
+(191, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 15:04:03'),
+(192, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 15:04:06'),
+(193, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 15:04:35'),
+(194, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-13 15:04:39'),
+(195, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-15 11:49:01'),
+(196, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-15 11:49:02'),
+(197, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-15 13:46:43'),
+(198, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-15 13:46:43'),
+(199, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-15 13:46:45'),
+(200, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-15 13:46:49'),
+(201, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-15 13:46:50'),
+(202, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-19 14:05:32'),
+(203, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-19 14:05:32'),
+(204, 'admin2@gmail.com', 'Admin melihat permintaan layanan.', '127.0.0.1', '2025-08-19 14:05:35'),
+(205, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-19 15:16:50'),
+(206, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-19 15:48:12'),
+(207, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-19 16:16:02'),
+(208, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-19 16:20:29'),
+(209, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-19 16:21:55'),
+(210, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-19 16:23:18'),
+(211, 'admin2@gmail.com', 'Mengakses halaman dashboard admin.', '127.0.0.1', '2025-08-19 16:24:34'),
+(212, 'admin2@gmail.com', 'User logout dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-19 17:27:14'),
+(213, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-19 17:27:27'),
+(214, 'admin2@gmail.com', 'User logout dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-19 18:11:22'),
+(215, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-19 18:11:37'),
+(216, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-22 12:43:40'),
+(217, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-22 17:15:27'),
+(218, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-23 04:21:48'),
+(219, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-23 07:04:12'),
+(220, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-24 17:44:50'),
+(221, 'admin2@gmail.com', 'User logout dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-24 18:31:08'),
+(222, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-24 18:32:36'),
+(223, 'admin2@gmail.com', 'User login dengan email: admin2@gmail.com', '127.0.0.1', '2025-08-25 04:54:06');
 
 -- --------------------------------------------------------
 
@@ -392,7 +482,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2025_05_27_064249_create_layanan_table', 1),
 (7, '2025_05_27_064346_create_service_requests_table', 1),
 (8, '2025_05_27_064516_create_registrasi_table', 1),
-(9, '2025_05_28_104910_create_log_activities_table', 2);
+(9, '2025_05_28_104910_create_log_activities_table', 2),
+(10, '2025_08_19_215402_create_admins_table', 3),
+(11, '2025_08_19_215403_create_booths_table', 4),
+(12, '2025_08_19_215403_create_pengunjungs_table', 5),
+(13, '2025_08_19_215403_create_penyewas_table', 6),
+(14, '2025_08_19_215404_create_pembelian_tiket_table', 7),
+(15, '2025_08_19_215404_create_tiket_table', 8),
+(16, '2025_08_19_215404_create_transaksi_sewa_table', 9),
+(17, '2025_08_23_003531_add_alamat_and_timestamps_to_penyewas_table', 10),
+(18, '2025_08_23_004121_add_timestamps_to_pengunjungs_table', 11),
+(19, '2025_08_23_113108_make_password_nullable_on_pengunjungs_table', 12);
 
 -- --------------------------------------------------------
 
@@ -440,6 +540,75 @@ INSERT INTO `pembayaran` (`id`, `permintaan_id`, `jumlah_tagihan`, `rincian_biay
 (7, 8, 780000, 'rusak dibagain mesin bawah', 'bukti_pembayaran/Fhvd2jHiygSWmLqsSkyPad1T9KvC0eqJfeDIU0US.jpg', 'menunggu', '2025-06-01 05:00:00', NULL, NULL, '2025-06-01 04:59:10', '2025-06-01 05:00:00'),
 (8, 11, 550000, 'rusak parah dibagian gear', NULL, 'menunggu', '2025-06-01 05:17:58', NULL, NULL, '2025-06-01 05:17:58', '2025-06-01 05:17:58'),
 (9, 13, 360000, 'remnya blong harus dikasih minyak lagi', 'bukti_pembayaran/efSFuWwpQPQhZmg3pNmRoaNy9ecRXc8EJGp7TXjb.jpg', 'ditolak', '2025-06-01 05:29:30', '2025-06-01 05:29:46', 'ga jelas', '2025-06-01 05:28:50', '2025-06-01 05:31:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pembelian_tiket`
+--
+
+CREATE TABLE `pembelian_tiket` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `pengunjung_id` int(10) UNSIGNED DEFAULT NULL,
+  `tiket_id` int(10) UNSIGNED DEFAULT NULL,
+  `jumlah` int(11) NOT NULL,
+  `total_harga` decimal(10,2) NOT NULL,
+  `qr_code` varchar(255) DEFAULT NULL,
+  `status_bayar` enum('pending','lunas') NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengunjungs`
+--
+
+CREATE TABLE `pengunjungs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pengunjungs`
+--
+
+INSERT INTO `pengunjungs` (`id`, `nama`, `email`, `password`, `no_hp`, `created_at`, `updated_at`) VALUES
+(1, 'nyahb', 'rawrD@gmail', '$2y$12$f/yBV.bwV0pQq3pTMqB4q.7Xw071D26z/biY.ABFEnFVNw.Uu9bVm', '083615345125', '2025-08-19 18:16:48', '2025-08-22 17:42:56'),
+(2, 'd', 'chloe@gmail', NULL, '333243243244', '2025-08-23 04:40:37', '2025-08-24 18:39:38'),
+(3, 'banteng', 'banteng@gmail.com', NULL, '0321771323', '2025-08-24 18:39:30', '2025-08-24 18:39:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penyewas`
+--
+
+CREATE TABLE `penyewas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `penyewas`
+--
+
+INSERT INTO `penyewas` (`id`, `nama`, `email`, `password`, `no_hp`, `alamat`, `created_at`, `updated_at`) VALUES
+(1, 'FDSFSD', 'FSDFS@gm', '$2y$12$EHSXbSZN3TxGXnEy22Vt0ecd.ZZ6E91ObTbzCIdf/ZXc6nYERl75G', '423423424', 'bvc', '2025-08-19 17:27:57', '2025-08-24 17:46:48'),
+(2, 'TES', 'raFwr@gmail', '$2y$12$UJPb7u0boiOZOQmNRL00..cPD/7pN3FpFU2UA7V3nJHSUpMxX.JM.', '04725634', 'benkin', '2025-08-19 18:16:33', '2025-08-24 17:46:45'),
+(3, 'f', 'rawr@gmail', '$2y$12$4faJB7PGWYdsejXQxmVDbOWROFngGJ6Ld/.rfL3NgDVd6VFvUJgV2', '04873432343', 'NBVNVB', '2025-08-22 12:37:36', '2025-08-24 17:46:40'),
+(4, 'yooo ted', 'tessssss@gmail.com', '$2y$12$yqA4W36nBrjkoVK4sQ2jyOGMfdGGBFDjDagb3znRzo789oyh0JtdO', '073826432', 'V', '2025-08-22 12:46:16', '2025-08-24 17:46:35');
 
 -- --------------------------------------------------------
 
@@ -526,7 +695,60 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('t8RfvZsjikbgc19BMooBCXs0DnJ5TqqstRx4FbZm', 9, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMVN4OEpCOTJaSjBJaFJPTHlFNzJWQkdHZTl2UFdZNld1VUh5aFdaYiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dfYWN0aXZpdHk/cGFnZT0zIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6OTt9', 1748756093);
+('auU3g9oAYmwJNyHXRS71bXWnkb3lgGd5IbH8bTcz', 10, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidEpnZFJDakYySjJmU2k5a1c1cGU2TTluWW5DNnplbnZrNElCZnlLWSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ha3VuIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoyNjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FrdW4iO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDt9', 1756097654),
+('hp2T8ZK2DgpxCgNld4zerIg4dz2YZdjMpgFIEJNw', 10, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaW43ejExYml2d2RQMU5heE9RT2VXUTBRSVV2aU1Rb2dzM1VBTzZ4MSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmRhZG1pbiI7fXM6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MjY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ha3VuIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTA7fQ==', 1756060874),
+('yPhW9Gbl9OuBNuil0a811naaWzhKKfUGS7WQqsTx', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiU3RWcm44M05PWDRjdGRldjRnQ2J6UndibE1CQ2J6M0xjTUVqMHJSYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1756097453);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tiket`
+--
+
+CREATE TABLE `tiket` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `admin_id` int(10) UNSIGNED DEFAULT NULL,
+  `nama_tiket` varchar(100) NOT NULL,
+  `harga` decimal(15,0) UNSIGNED NOT NULL,
+  `stok` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tiket`
+--
+
+INSERT INTO `tiket` (`id`, `admin_id`, `nama_tiket`, `harga`, `stok`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'tiket makan corndog', 56784343, 45, '2025-08-19 16:06:24', NULL),
+(5, NULL, 'tiket makan gratis', 124444, 12, '2025-08-19 18:16:21', '2025-08-24 18:38:12'),
+(9, NULL, 'tiket band', 389999, 20, '2025-08-24 18:37:58', '2025-08-24 18:37:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi_sewa`
+--
+
+CREATE TABLE `transaksi_sewa` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `penyewa_id` int(10) UNSIGNED DEFAULT NULL,
+  `booth_id` int(10) UNSIGNED DEFAULT NULL,
+  `tanggal_mulai` date NOT NULL,
+  `tanggal_selesai` date NOT NULL,
+  `total_bayar` decimal(10,2) NOT NULL,
+  `status` enum('pending','disetujui','ditolak') NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transaksi_sewa`
+--
+
+INSERT INTO `transaksi_sewa` (`id`, `penyewa_id`, `booth_id`, `tanggal_mulai`, `tanggal_selesai`, `total_bayar`, `status`, `created_at`) VALUES
+(2, 3, 4, '2025-08-22', '2025-08-22', 123.00, 'pending', '2025-08-22 12:37:36'),
+(4, 1, 4, '2025-08-07', '2025-08-16', 22.00, 'ditolak', '2025-08-23 04:25:17'),
+(5, 2, 7, '2025-08-23', '2025-08-26', 34.00, 'disetujui', '2025-08-23 04:25:30');
 
 -- --------------------------------------------------------
 
@@ -539,7 +761,7 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('admin','pengguna','petugas') NOT NULL DEFAULT 'pengguna',
+  `role` varchar(20) NOT NULL DEFAULT 'user',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -549,17 +771,32 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'pengguna', 'pengguna@gmail.com', '$2y$12$OoOWbW9WzB7GCldV/8ktJeli6YvmCOISrAC.WtBWWC.9agYLnkUxW', 'pengguna', '2025-05-27 08:00:09', '2025-05-27 08:00:09'),
+(1, 'pengguna', 'pengguna@gmail.com', '123', 'user', '2025-05-27 08:00:09', '2025-08-24 17:45:47'),
 (3, 'adminn', 'adminn@gmail.com', '$2y$12$rjaZ817kjG9WTjTuBrQymuweHWXVsZvd.lFghXwR43nN2u0Z3AhlG', 'admin', '2025-05-27 14:55:54', '2025-05-27 14:55:54'),
 (4, 'admin', 'admin@gmail.com', '$2y$12$Hotx/VfslUv4YdHFUy.EVeY7JMPi1zPeq0nUKAHRi3zYUNk5ONSka', 'admin', '2025-05-28 01:07:34', '2025-05-28 01:07:34'),
-(5, 'rpl', 'rpl@gmail.com', '$2y$12$CrmL7SaVbwdJ4q9u0vCmNOJ.x/.DzgmEj6oHq92EfjpGvkC/AGSau', 'pengguna', '2025-06-01 04:48:06', '2025-06-01 04:48:06'),
-(7, 'kudanil', 'kudanil@gmail.com', '$2y$12$M/kgZyHjjKXuNF93HtPRTeT0FqCipjdY3XzxdGgn/rBRN/OnsPzLW', 'pengguna', '2025-06-01 05:03:55', '2025-06-01 05:03:55'),
-(8, 'Sayap', 'sayap@gmail.com', '$2y$12$.zSuoCbvpvuPvQ9aFGBBveJMLs3rtXKnuS5YdhwGqFRgS/qmgrRjC', 'pengguna', '2025-06-01 05:10:49', '2025-06-01 05:10:49'),
-(9, 'Caca', 'caca@gmail.com', '$2y$12$a3c0ty2fo.59K19mbH7KlOOgzj6RgC56FCKq7FlzA.2AuyGNPBuZy', 'pengguna', '2025-06-01 05:23:16', '2025-06-01 05:23:16');
+(7, 'kudanil', 'kudanil@gmail.com', '$2y$12$M/kgZyHjjKXuNF93HtPRTeT0FqCipjdY3XzxdGgn/rBRN/OnsPzLW', 'user', '2025-06-01 05:03:55', '2025-08-24 17:45:42'),
+(8, 'Sayap', 'sayap@gmail.com', '$2y$12$.zSuoCbvpvuPvQ9aFGBBveJMLs3rtXKnuS5YdhwGqFRgS/qmgrRjC', 'user', '2025-06-01 05:10:49', '2025-08-24 17:45:36'),
+(9, 'Cacah', 'caca@gmail.com', '$2y$12$a3c0ty2fo.59K19mbH7KlOOgzj6RgC56FCKq7FlzA.2AuyGNPBuZy', 'user', '2025-06-01 05:23:16', '2025-08-22 17:29:35'),
+(10, 'ADMIN2', 'admin2@gmail.com', '$2y$12$47j6Wwj/j9q.zeQxEfBEp.FCq8ViJK9181zYNUMptrRKtqLLRnKm.', 'admin', '2025-08-13 14:20:46', '2025-08-13 14:20:46'),
+(11, 'adddd', 'habisedit@gmail.com', '$2y$12$by2/w7.zh4SlsIyihzHrOeKui3X6ijBsgYtsCsQ3vGfk3XEESaVcC', 'user', '2025-08-22 17:29:27', '2025-08-24 18:35:15');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admins_email_unique` (`email`);
+
+--
+-- Indexes for table `booths`
+--
+ALTER TABLE `booths`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `booths_admin_id_index` (`admin_id`);
 
 --
 -- Indexes for table `cache`
@@ -636,6 +873,28 @@ ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pembelian_tiket`
+--
+ALTER TABLE `pembelian_tiket`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pembelian_tiket_pengunjung_id_index` (`pengunjung_id`),
+  ADD KEY `pembelian_tiket_tiket_id_index` (`tiket_id`);
+
+--
+-- Indexes for table `pengunjungs`
+--
+ALTER TABLE `pengunjungs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pengunjungs_email_unique` (`email`);
+
+--
+-- Indexes for table `penyewas`
+--
+ALTER TABLE `penyewas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `penyewas_email_unique` (`email`);
+
+--
 -- Indexes for table `registrasi`
 --
 ALTER TABLE `registrasi`
@@ -661,6 +920,21 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
+-- Indexes for table `tiket`
+--
+ALTER TABLE `tiket`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tiket_admin_id_index` (`admin_id`);
+
+--
+-- Indexes for table `transaksi_sewa`
+--
+ALTER TABLE `transaksi_sewa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `transaksi_sewa_penyewa_id_index` (`penyewa_id`),
+  ADD KEY `transaksi_sewa_booth_id_index` (`booth_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -670,6 +944,18 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `booths`
+--
+ALTER TABLE `booths`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -699,7 +985,7 @@ ALTER TABLE `layanan`
 -- AUTO_INCREMENT for table `log_activities`
 --
 ALTER TABLE `log_activities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
 -- AUTO_INCREMENT for table `mekanik`
@@ -711,13 +997,31 @@ ALTER TABLE `mekanik`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `pembelian_tiket`
+--
+ALTER TABLE `pembelian_tiket`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pengunjungs`
+--
+ALTER TABLE `pengunjungs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `penyewas`
+--
+ALTER TABLE `penyewas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `registrasi`
@@ -732,14 +1036,39 @@ ALTER TABLE `service_requests`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `tiket`
+--
+ALTER TABLE `tiket`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `transaksi_sewa`
+--
+ALTER TABLE `transaksi_sewa`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `booths`
+--
+ALTER TABLE `booths`
+  ADD CONSTRAINT `booths_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `pembelian_tiket`
+--
+ALTER TABLE `pembelian_tiket`
+  ADD CONSTRAINT `pembelian_tiket_pengunjung_id_foreign` FOREIGN KEY (`pengunjung_id`) REFERENCES `pengunjungs` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `pembelian_tiket_tiket_id_foreign` FOREIGN KEY (`tiket_id`) REFERENCES `tiket` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `registrasi`
@@ -755,6 +1084,19 @@ ALTER TABLE `registrasi`
 --
 ALTER TABLE `service_requests`
   ADD CONSTRAINT `service_requests_assigned_to_foreign` FOREIGN KEY (`assigned_to`) REFERENCES `mekanik` (`id`);
+
+--
+-- Constraints for table `tiket`
+--
+ALTER TABLE `tiket`
+  ADD CONSTRAINT `tiket_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `transaksi_sewa`
+--
+ALTER TABLE `transaksi_sewa`
+  ADD CONSTRAINT `transaksi_sewa_booth_id_foreign` FOREIGN KEY (`booth_id`) REFERENCES `booths` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `transaksi_sewa_penyewa_id_foreign` FOREIGN KEY (`penyewa_id`) REFERENCES `penyewas` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

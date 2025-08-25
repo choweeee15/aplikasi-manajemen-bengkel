@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Booth;
+use App\Models\Tiket;
+use App\Models\PembelianTiket;
+use App\Models\Pengunjung;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function index()
     {
-        return view('home');
-    }
-    public function services()
-    {
-        return view('service');
-    }
-    public function about()
-    {
-        return view('about');
-    }
+        $featuredBooths   = Booth::orderByDesc('id')->take(6)->get();
+        $tiketList        = Tiket::orderBy('harga')->get();
 
+        $countBooth       = Booth::count();
+        $countTiketJenis  = Tiket::count();
+        $countPengunjung  = Pengunjung::count();
+        $tiketTerjual     = (int) PembelianTiket::where('status_bayar','lunas')->sum('jumlah');
 
+        return view('home', compact(
+            'featuredBooths','tiketList',
+            'countBooth','countTiketJenis','countPengunjung','tiketTerjual'
+        ));
+    }
 }
